@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   Home,
   PieChart,
@@ -20,6 +20,8 @@ function cx(...c: Array<string | false | null | undefined>) {
 }
 
 export default function AppShell() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#0b0b0f] text-gray-300 font-sans flex overflow-hidden">
       {/* Sidebar */}
@@ -173,7 +175,11 @@ export default function AppShell() {
               <Bell className="w-5 h-5 text-gray-400 hover:text-white transition-colors" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#c8b6ff] rounded-full border-2 border-[#0b0b0f]" />
             </div>
-            <button className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors" type="button">
+            <button
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+              type="button"
+              onClick={() => navigate("/settings")}
+            >
               <Settings className="w-5 h-5" />
               <span className="text-sm font-medium hidden sm:inline">Settings</span>
             </button>

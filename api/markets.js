@@ -7,11 +7,24 @@ module.exports = async (req, res) => {
     const ids =
       typeof req.query?.ids === "string" && req.query.ids.trim().length
         ? req.query.ids
-        : "bitcoin,ethereum,solana";
+        : "";
+
+    const category =
+      typeof req.query?.category === "string" && req.query.category.trim().length
+        ? req.query.category
+        : "";
+
+    const vsCurrency =
+      typeof req.query?.vs_currency === "string" && req.query.vs_currency.trim().length
+        ? req.query.vs_currency
+        : "usd";
 
     const url = new URL("https://api.coingecko.com/api/v3/coins/markets");
-    url.searchParams.set("vs_currency", "usd");
-    url.searchParams.set("ids", ids);
+    url.searchParams.set("vs_currency", vsCurrency);
+
+    if (category) url.searchParams.set("category", category);
+    if (ids) url.searchParams.set("ids", ids);
+
     url.searchParams.set("order", "market_cap_desc");
     url.searchParams.set("per_page", "10");
     url.searchParams.set("page", "1");

@@ -5,23 +5,26 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import "./index.css";
 import { router } from "./router";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster
-        position="top-right"
-        toastOptions={{
-          style: {
-            background: "#16161a",
-            color: "#e5e7eb",
-            border: "1px solid #1f1f25",
-          },
-        }}
-      />
+      <SettingsProvider>
+        <RouterProvider router={router} />
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            style: {
+              background: "#16161a",
+              color: "#e5e7eb",
+              border: "1px solid #1f1f25",
+            },
+          }}
+        />
+      </SettingsProvider>
     </QueryClientProvider>
   </StrictMode>
 );

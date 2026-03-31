@@ -16,21 +16,28 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { fetchMarkets } from "../lib/api";
+import { useSettings } from "../contexts/SettingsContext";
 import { KpiCard } from "../components/KpiCard";
 import { Sparkline } from "../components/Sparkline";
 
-function formatMoneyUSD(n: number) {
-  return new Intl.NumberFormat("en-US", {
+function formatMoney(n: number, currency: string) {
+  return new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: "USD",
+    currency: currency.toUpperCase(),
     maximumFractionDigits: 0,
   }).format(n);
 }
 
 export default function Dashboard() {
+  const { settings } = useSettings();
+
   const { data, isLoading, isError, refetch, isFetching } = useQuery({
-    queryKey: ["markets"],
-    queryFn: () => fetchMarkets("bitcoin,ethereum,solana"),
+    queryKey: ["markets", settings.industryCategory, settings.vsCurrency],
+    queryFn: () =>
+      fetchMarkets({
+        category: settings.industryCategory,
+        vs_currency: settings.vsCurrency,
+      }),
     staleTime: 60_000,
   });
 
@@ -112,8 +119,14 @@ export default function Dashboard() {
       {/* Top Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <KpiCard
-          title={btc ? `${btc.name} • Precio` : "Bitcoin • Precio"}
-          value={isLoading ? "—" : btc ? formatMoneyUSD(btc.current_price) : "N/D"}
+          title={btc ? `${btc.name} • Precio` : "Top 1 • Precio"}
+          value={
+            isLoading
+              ? "—"
+              : btc
+                ? formatMoney(btc.current_price, settings.vsCurrency)
+                : "N/D"
+          }
           delta={
             btc ? (
               <span className="inline-flex items-center gap-1">
@@ -145,8 +158,14 @@ export default function Dashboard() {
         </KpiCard>
 
         <KpiCard
-          title={eth ? `${eth.name} • Precio` : "Ethereum • Precio"}
-          value={isLoading ? "—" : eth ? formatMoneyUSD(eth.current_price) : "N/D"}
+          title={eth ? `${eth.name} • Precio` : "Top 2 • Precio"}
+          value={
+            isLoading
+              ? "—"
+              : eth
+                ? formatMoney(eth.current_price, settings.vsCurrency)
+                : "N/D"
+          }
           delta={
             eth ? (
               <span className="inline-flex items-center gap-1">
@@ -178,8 +197,14 @@ export default function Dashboard() {
         </KpiCard>
 
         <KpiCard
-          title={sol ? `${sol.name} • Precio` : "Solana • Precio"}
-          value={isLoading ? "—" : sol ? formatMoneyUSD(sol.current_price) : "N/D"}
+          title={sol ? `${sol.name} • Precio` : "Top 3 • Precio"}
+          value={
+            isLoading
+              ? "—"
+              : sol
+                ? formatMoney(sol.current_price, settings.vsCurrency)
+                : "N/D"
+          }
           delta={
             sol ? (
               <span className="inline-flex items-center gap-1">

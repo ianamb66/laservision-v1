@@ -5,6 +5,7 @@ import Investments from "./pages/Investments";
 import Marketplace from "./pages/Marketplace";
 import Calculator from "./pages/Calculator";
 import AIEngine from "./pages/AIEngine";
+import SettingsPage from "./pages/SettingsPage";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: "marketplace", element: <Marketplace /> },
       { path: "calculator", element: <Calculator /> },
       { path: "ai", element: <AIEngine /> },
+      { path: "settings", element: <SettingsPage /> },
     ],
   },
 ]);
