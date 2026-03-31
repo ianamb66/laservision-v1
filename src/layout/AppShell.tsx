@@ -33,6 +33,9 @@ export default function AppShell() {
             </div>
             <span className="text-white font-bold text-lg tracking-wide">
               Lasarvision<span className="text-gray-500"> v1</span>
+              <span className="text-gray-500 text-xs font-medium ml-2 align-middle">
+                by Ian
+              </span>
             </span>
           </div>
           <ChevronRight className="w-4 h-4 text-gray-600" />
@@ -113,7 +116,7 @@ export default function AppShell() {
           ))}
         </div>
 
-        <div className="px-4 mt-auto mb-6 space-y-3">
+        <div className="px-4 mt-auto mb-4 space-y-3">
           <div className="flex items-center justify-between px-3 mb-2">
             <span className="text-[11px] font-bold uppercase text-gray-500 flex items-center gap-2">
               <span className="w-3 h-3 bg-indigo-500 rounded-full flex items-center justify-center text-[8px] text-white">
@@ -157,6 +160,10 @@ export default function AppShell() {
             </div>
           ))}
         </div>
+
+        <div className="px-6 pb-6">
+          <p className="text-[10px] text-gray-600">Lasarvision v1 — by Ian</p>
+        </div>
       </aside>
 
       {/* Main */}
@@ -188,6 +195,11 @@ export default function AppShell() {
 
         <div className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-8 py-6 pt-2">
           <Outlet />
+          <footer className="mt-10 pt-6 border-t border-[#1f1f25]">
+            <p className="text-center text-xs text-gray-600">
+              Lasarvision v1 — by Ian
+            </p>
+          </footer>
         </div>
       </main>
     </div>
